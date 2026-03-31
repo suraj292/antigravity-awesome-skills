@@ -6670,6 +6670,16 @@
     "date_added": "2026-02-27"
   },
   {
+    "id": "laravel",
+    "path": "skills/laravel",
+    "category": "backend",
+    "name": "laravel",
+    "description": "Dedicated Laravel skill for production-grade application work using modern Laravel conventions (10/11+), including architecture, validation, Eloquent, APIs, auth, queues, and testing.",
+    "risk": "safe",
+    "source": "community",
+    "date_added": "2026-03-31"
+  },
+  {
     "id": "laravel-expert",
     "path": "skills/laravel-expert",
     "category": "uncategorized",
@@ -8490,6 +8500,16 @@
     "date_added": "2026-02-27"
   },
   {
+    "id": "php",
+    "path": "skills/php",
+    "category": "backend",
+    "name": "php",
+    "description": "Dedicated PHP engineering skill for building, refactoring, and reviewing modern PHP applications with clean architecture, strict typing, security, and performance in mind.",
+    "risk": "safe",
+    "source": "community",
+    "date_added": "2026-03-31"
+  },
+  {
     "id": "php-pro",
     "path": "skills/php-pro",
     "category": "uncategorized",
@@ -9098,6 +9118,16 @@
     "risk": "unknown",
     "source": "unknown",
     "date_added": null
+  },
+  {
+    "id": "reactjs",
+    "path": "skills/reactjs",
+    "category": "frontend",
+    "name": "reactjs",
+    "description": "Dedicated React.js skill for building and maintaining modern React applications with clear component boundaries, predictable state flow, performance-aware rendering, and robust testing patterns.",
+    "risk": "safe",
+    "source": "community",
+    "date_added": "2026-03-31"
   },
   {
     "id": "react-best-practices",
@@ -11548,6 +11578,16 @@
     "risk": "unknown",
     "source": "community",
     "date_added": "2026-02-27"
+  },
+  {
+    "id": "vuejs",
+    "path": "skills/vuejs",
+    "category": "frontend",
+    "name": "vuejs",
+    "description": "Dedicated Vue.js skill for building and maintaining Vue 3 applications with Composition API, reactivity best practices, component architecture, routing, state management, and performance optimization.",
+    "risk": "safe",
+    "source": "community",
+    "date_added": "2026-03-31"
   },
   {
     "id": "vulnerability-scanner",
