@@ -9,6 +9,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.4.0] - 2026-03-31 - "Release Hardening and Credit Sync"
+
+> Installable skill library update for Claude Code, Cursor, Codex CLI, Gemini CLI, Antigravity, and related AI coding assistants.
+
+Start here:
+
+- Install: `npx antigravity-awesome-skills`
+- Choose your tool: [README -> Choose Your Tool](https://github.com/sickn33/antigravity-awesome-skills#choose-your-tool)
+- Best skills by tool: [README -> Best Skills By Tool](https://github.com/sickn33/antigravity-awesome-skills#best-skills-by-tool)
+- Bundles: [docs/users/bundles.md](https://github.com/sickn33/antigravity-awesome-skills/blob/main/docs/users/bundles.md)
+- Workflows: [docs/users/workflows.md](https://github.com/sickn33/antigravity-awesome-skills/blob/main/docs/users/workflows.md)
+
+This release focuses on repository reliability rather than adding new skills. It hardens marketplace and plugin validation, adds stronger release-facing CI checks, refreshes the root README and source-credit ledger, and cleans up several maintainer and user docs so the public repo matches the active merge and release workflow on `main`.
+
+## Improvements
+
+- **Marketplace sync reliability** - made editorial bundle and plugin publication sync more atomic so generated marketplace state is staged and refreshed more predictably during maintainer flows.
+- **Validation hardening** - tightened frontmatter parsing, plugin compatibility checks, and bundle/index validation to better defend against malformed or unsafe metadata.
+- **Release CI guardrails** - added dedicated dependency-review and actionlint workflows, plus the corresponding shellcheck-safe workflow fix in CI.
+- **README landing-page cleanup** - reorganized the root `README.md` so discovery, installation, and credits are easier to scan, and removed misplaced SEO wording.
+- **Source credits refresh** - audited the credits ledger against current upstream sources and release history, removed the dead `sstklen/claude-api-cost-optimization` entry, normalized stale descriptions, and added missing official/community repos now reflected in the README.
+- **Maintainer merge policy** - updated `.github/MAINTENANCE.md` so every PR merge now explicitly requires checking and syncing both `### Community Contributors` and `## Repo Contributors`.
+- **English documentation cleanup** - translated remaining mixed Italian phrasing in maintainer audit docs, workflow docs, and the Jetski Cortex integration guide to keep repository-facing documentation consistent.
+
+## Changed
+
+- **Generated repo state** - refreshed the sitemap, star-history asset, and metadata-driven README state as part of the current `main` sync flow.
+- **Vietnamese credits mirror** - aligned the Vietnamese README copy with the current source-credit corrections that landed on the main README.
+- **Release-facing tests** - updated consistency and metadata tests to match the refreshed README/docs wording and current release contract.
+
+## Who should care
+
+- **Maintainers** get a safer release path with stricter validation, clearer post-merge credit rules, and stronger CI checks before tags are cut.
+- **Claude Code, Codex CLI, Cursor, Gemini CLI, and Antigravity users** get a cleaner root README and more accurate source attribution when discovering official and community skill collections.
+- **Contributors and documentation-heavy users** get more consistent English-language docs across workflows, maintainer guidance, and integration references.
+
+## Credits
+
+- **Repository maintainers** for the post-`9.3.0` release hardening, CI additions, documentation cleanup, and source-credit audit on `main`
+
 ## [9.3.0] - 2026-03-30 - "Chinese Documentation Expansion and Community Discovery"
 
 > Installable skill library update for Claude Code, Cursor, Codex CLI, Gemini CLI, Antigravity, and related AI coding assistants.

@@ -5,7 +5,7 @@
 This guide details the exact procedures for maintaining `antigravity-awesome-skills`.
 It covers the **Quality Bar**, **Documentation Consistency**, and **Release Workflows**.
 
-**Maintainer shortcuts:** [Merge a PR](#b-when-you-merge-a-pr-step-by-step) · [Reopen & merge a closed PR](#if-a-pr-was-closed-after-local-integration-reopen-and-merge) · [Post-merge & contributors](#c-post-merge-routine-must-do-before-a-release) · [Close issues](#when-to-close-an-issue) · [Create a release](#4-release-workflow)
+**Maintainer shortcuts:** [Merge a PR](#b-when-you-merge-a-pr-step-by-step) · [Reopen & merge a closed PR](#if-a-pr-was-closed-after-local-integration-reopen-and-merge) · [Post-merge credits sync](#c-post-merge-credits-sync-mandatory-after-every-pr-merge) · [Close issues](#when-to-close-an-issue) · [Create a release](#4-release-workflow)
 
 ---
 
@@ -201,22 +201,43 @@ We used this flow for PRs [#220](https://github.com/sickn33/antigravity-awesome-
     ```text
     Fixed in #<PR_NUMBER>. Shipped in release vX.Y.Z.
     ```
-3.  **Single PR or small batch** — Optionally run the full Post-Merge Routine below. For a single, trivial PR you can defer it to the next release prep.
+3.  **Run the Post-Merge Credits Sync below** — this is mandatory after every PR merge, including single-PR merges.
 
-### C. Post-Merge Routine (Must Do Before a Release)
+### C. Post-Merge Credits Sync (Mandatory After Every PR Merge)
 
-After you have merged several PRs or before cutting a release:
+This section is **not optional**. Every time a PR is merged, you must ensure both README credit surfaces are correct on `main`:
 
-1.  **Sync Contributors List**:
+- `### Community Contributors` / `## Credits & Sources` for external repositories referenced by the merged work
+- `## Repo Contributors` for the human contributor list
+
+Do this **immediately after each PR merge**. Do not defer it to release prep.
+
+1.  **Pull the merged `main` state locally**:
+    ```bash
+    git checkout main
+    git pull --ff-only origin main
+    ```
+
+2.  **Sync `Repo Contributors`**:
     - Run: `npm run sync:contributors`
     - This refreshes `## Repo Contributors` in `README.md` from the live GitHub contributor list while preserving custom bot/app links.
-    - If you are already doing a full maintainer sweep, prefer `npm run sync:repo-state`.
+    - If you are already doing a full maintainer sweep, `npm run sync:repo-state` is also acceptable.
 
-2.  **Verify Table of Contents**:
-    - Ensure all new headers have clean anchors.
-    - **NO EMOJIS** in H2 headers.
+3.  **Audit external-source credits for the merged PR**:
+    - Read the merged PR description, changed files, linked issues, and any release-note draft text you plan to ship.
+    - If the PR added skills, references, or content sourced from an external GitHub repo that is not already credited in `README.md`, add it immediately.
+    - If the repo is from an official organization/project source, place it under `### Official Sources`.
+    - If the repo is a non-official ecosystem/community source, place it under `### Community Contributors`.
+    - If the PR reveals that a credited repo is dead, renamed, archived, or overstated, fix the README entry in the same follow-up pass instead of leaving stale metadata behind.
+    - Release notes are not a substitute for README attribution. If a repo appears in the merged work or planned release notes and belongs in credits, add it to the README at merge time.
 
-3.  **Prepare for release** — Draft the release and tag when ready (see [§4 Release Workflow](#4-release-workflow) below).
+4.  **Commit and push README credit updates right away**:
+    - If `npm run sync:contributors` or the credit audit changed `README.md`, commit and push that follow-up immediately on `main`.
+    - Do not leave contributor or community-credit drift sitting locally until the next release.
+
+5.  **Then continue with normal maintenance**:
+    - Verify Table of Contents if you touched headings.
+    - Prepare the release when ready (see [§4 Release Workflow](#4-release-workflow) below).
 
 ---
 
@@ -256,10 +277,15 @@ Locations to check:
 
 ### D. Credits Policy (Who goes where?)
 
-- **Credits & Sources**: Use this for **External Repos**.
-  - _Rule_: "I extracted skills from this link you sent me." -> Add to `## Credits & Sources`.
+- **Official Sources**: Use this for **official org/vendor/project repos**.
+  - _Rule_: "This came from the official repo for the tool/company/project." -> Add to `### Official Sources`.
+- **Community Contributors**: Use this for **non-official external repos** that contributed skills, references, templates, or other source material.
+  - _Rule_: "This merged PR depends on or imports material from a community repo." -> Add to `### Community Contributors`.
+- **Credits & Sources**: This whole area is for **external repos and upstream sources**, split into Official vs Community.
 - **Repo Contributors**: Use this for **Pull Requests**.
   - _Rule_: "This user sent a PR." -> Add to `## Repo Contributors`.
+
+**Merge rule:** after every PR merge, check **both** `### Community Contributors` and `## Repo Contributors`. A merge is not fully done until both sections are either confirmed unchanged or updated and pushed.
 
 ### E. Badges & Links
 

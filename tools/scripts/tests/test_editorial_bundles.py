@@ -106,6 +106,30 @@ class EditorialBundlesTests(unittest.TestCase):
         )
         self.assertEqual(generated_plugins, expected_plugins)
 
+    def test_manifest_rejects_bundle_ids_with_path_traversal(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = pathlib.Path(temp_dir)
+            skill_dir = temp_root / "skills" / "safe-skill"
+            skill_dir.mkdir(parents=True, exist_ok=True)
+
+            payload = {
+                "bundles": [
+                    {
+                        "id": "../../outside",
+                        "name": "Safe Bundle",
+                        "group": "Security",
+                        "emoji": "🛡️",
+                        "tagline": "Test bundle",
+                        "audience": "Testers",
+                        "description": "Testers",
+                        "skills": [{"id": "safe-skill", "summary": "ok"}],
+                    }
+                ]
+            }
+
+            with self.assertRaisesRegex(ValueError, "Invalid editorial bundle id"):
+                editorial_bundles._validate_editorial_bundles(temp_root, payload)
+
     def test_sample_bundle_copy_matches_source_file_inventory(self):
         sample_bundle = next(bundle for bundle in self.manifest_bundles if bundle["id"] == "documents-presentations")
         plugin_skills_root = REPO_ROOT / "plugins" / "antigravity-bundle-documents-presentations" / "skills"

@@ -22,6 +22,7 @@ from update_readme import configure_utf8_output, load_metadata
 SAFE_SKILL_ID_RE = re.compile(
     r"^(?!.*(?:^|/)\.{1,2}(?:/|$))[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*$"
 )
+SAFE_BUNDLE_ID_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$")
 REPO_URL = "https://github.com/sickn33/antigravity-awesome-skills"
 AUTHOR = {
     "name": "sickn33 and contributors",
@@ -182,6 +183,11 @@ def _validate_bundle_skill_id(skill_id: str) -> None:
         raise ValueError(f"Invalid skill id in editorial bundles manifest: {skill_id!r}")
 
 
+def _validate_bundle_id(bundle_id: str) -> None:
+    if not SAFE_BUNDLE_ID_RE.fullmatch(bundle_id):
+        raise ValueError(f"Invalid editorial bundle id: {bundle_id!r}")
+
+
 def _validate_editorial_bundles(root: Path, payload: dict[str, Any]) -> list[dict[str, Any]]:
     bundles = payload.get("bundles")
     if not isinstance(bundles, list) or not bundles:
@@ -199,6 +205,7 @@ def _validate_editorial_bundles(root: Path, payload: dict[str, Any]) -> list[dic
         bundle_name = str(bundle.get("name", "")).strip()
         if not bundle_id or not bundle_name:
             raise ValueError("Each editorial bundle requires non-empty 'id' and 'name'.")
+        _validate_bundle_id(bundle_id)
         if bundle_id in seen_bundle_ids:
             raise ValueError(f"Duplicate editorial bundle id: {bundle_id}")
         if bundle_name in seen_bundle_names:
